@@ -1,4 +1,4 @@
-package com.example.countries.entity;
+package com.example.countries.model;
 
 import jakarta.persistence.*;
 
@@ -10,7 +10,7 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true, nullable = false)
     private String uid;
 
     @Column(nullable = false)
@@ -21,7 +21,7 @@ public class Country {
     private Long population;
     private Long area;
 
-    // Getters and Setters
+    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

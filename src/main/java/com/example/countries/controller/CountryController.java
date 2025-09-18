@@ -1,6 +1,6 @@
 package com.example.countries.controller;
 
-import com.example.countries.entity.Country;
+import com.example.countries.model.Country;
 import com.example.countries.service.CountryService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,27 +16,23 @@ public class CountryController {
         this.service = service;
     }
 
-    // 1. Get all countries
     @GetMapping
-    public List<Country> getAllCountries() {
-        return service.getAllCountries();
+    public List<String> getAllCountryNames() {
+        return service.getAllCountryNames();
     }
 
-    // 2. Get info about a particular country
     @GetMapping("/{name}")
     public Country getCountryByName(@PathVariable String name) {
         return service.getCountryByName(name);
     }
 
-    // 3. Countries with population > param
-    @GetMapping("/population/greater/{value}")
-    public List<Country> getCountriesWithPopulationGreater(@PathVariable Long value) {
-        return service.getCountriesWithPopulationGreaterThan(value);
+    @GetMapping("/population/greater")
+    public List<Country> getCountriesPopulationGreater(@RequestParam Long population) {
+        return service.getCountriesPopulationGreaterThan(population);
     }
 
-    // 4. Countries with population < param
-    @GetMapping("/population/less/{value}")
-    public List<Country> getCountriesWithPopulationLess(@PathVariable Long value) {
-        return service.getCountriesWithPopulationLessThan(value);
+    @GetMapping("/population/less")
+    public List<Country> getCountriesPopulationLess(@RequestParam Long population) {
+        return service.getCountriesPopulationLessThan(population);
     }
 }

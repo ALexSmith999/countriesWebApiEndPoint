@@ -1,14 +1,16 @@
 package com.example.countries.repository;
 
-import com.example.countries.entity.Country;
+import com.example.countries.model.Country;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
-@Repository
 public interface CountryRepository extends JpaRepository<Country, Long> {
-    Country findByNameIgnoreCase(String name);
+
+    Optional<Country> findByName(String name);
+
     List<Country> findByPopulationGreaterThan(Long population);
+
     List<Country> findByPopulationLessThan(Long population);
 }
