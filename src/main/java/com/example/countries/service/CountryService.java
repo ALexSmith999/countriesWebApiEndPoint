@@ -2,35 +2,28 @@ package com.example.countries.service;
 
 import com.example.countries.model.Country;
 import com.example.countries.repository.CountryRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CountryService {
 
-    private final CountryRepository repository;
+    private static final Logger logger = LoggerFactory.getLogger(CountryService.class);
 
-    public CountryService(CountryRepository repository) {
-        this.repository = repository;
+    private final CountryRepository countryRepository;
+
+    public CountryService(CountryRepository countryRepository) {
+        this.countryRepository = countryRepository;
     }
 
     public List<String> getAllCountryNames() {
-        return repository.findAll().stream()
+        logger.info("Fetching all country names from repository");
+        return countryRepository.findAll()
+                .stream()
                 .map(Country::getName)
-                .collect(Collectors.toList());
-    }
-
-    public Country getCountryByName(String name) {
-        return repository.findByName(name).orElse(null);
-    }
-
-    public List<Country> getCountriesPopulationGreaterThan(Long population) {
-        return repository.findByPopulationGreaterThan(population);
-    }
-
-    public List<Country> getCountriesPopulationLessThan(Long population) {
-        return repository.findByPopulationLessThan(population);
+                .toList();
     }
 }
